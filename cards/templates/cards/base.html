@@ -1,9 +1,11 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>Flashcards</title>
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <link rel="stylesheet" href="{% static 'cards/simple.css' %}">
 </head>
 
 <style>
@@ -11,7 +13,7 @@
 
     :root {
         --accent: #6e48ad;
-        --accent-bg: white;
+        --accent-bg: rgb(255, 255, 255);
         --bg: #fff;
         --text: #212121;
         --text-light: #585858;
@@ -36,6 +38,12 @@
         margin-top: 0;
     }
 
+    .messages {
+        background-color: var(--accent);
+        color: white;
+        border-radius: 5px;
+    }
+
     hr {
         background: var(--accent);
         border-color: var(--accent);
@@ -49,7 +57,7 @@
 
     input, select, textarea {
         width: 100%;
-    }
+    } 
 </style>
 
 <body>
@@ -58,8 +66,14 @@
         {% include "cards/navigation.html" %}
     </header>
     <main>
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <h6>{{ message }}</h6>
+                {% endfor %}
+            </div>
+        {% endif %}
         {% block content %}
-            <h2>Welcome to the Flashcards App</h2>
         {% endblock content %}
     </main>
 </body>
